@@ -109,8 +109,8 @@
 	});
 
 	$('.testimonial-wrap-2').slick({
-		slidesToShow: 2,
-		slidesToScroll: 2,
+		slidesToShow: 1,
+		slidesToScroll: 1,
 		infinite: true,
 		dots: true,
 		arrows:false,
