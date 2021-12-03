@@ -925,10 +925,10 @@ a:focus {
 .testimonial-block.style-2 .testimonial-thumb img {
   width: 80px;
   height: 80px;
-  border-radius: 100%;
+  border-radius: 0%;
   margin-right: 20px;
   margin-bottom: 30px;
-  border: 5px solid #eff0f3;
+  border: 0px solid #eff0f3;
   margin-top: -5px;
 }
 

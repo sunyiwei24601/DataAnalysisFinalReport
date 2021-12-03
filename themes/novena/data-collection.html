@@ -131,17 +131,36 @@
 
 			<div class="blog-item-content mt-5">
 
-				<h2 class="mb-4 text-md"><a href="blog-single.html">Datasets</a></h2>
-				<h3>U.S. Chronic Disease Indicators: Diabetes</h3>
-				<p class="lead mb-4">Non illo quas blanditiis repellendus laboriosam minima animi. Consectetur accusantium pariatur repudiandae!</p>
+				<h2 class="mb-4 text-md"><a href="data-collection.html">Datasets</a></h2>
+				<h3 id="chronic">U.S. Chronic Disease Indicators: Diabetes</h3>
 				<p>This original dataset is provided by CDC with 124 indicators that were developed by consensus that allows states to uniformly define, collect and report chronic disease data. The sub-category dataset focuses on diagnosed patients and their geolocations, age, and race information from 2010 to 2019</p>
-				<h3>Nutrition, Physical Activity, Obesity Legislation</h3>
+				<h3 id="nutrition">Nutrition, Physical Activity, Obesity Legislation</h3>
 				<p>This dataset contains policy data for 50 US states and DC from 2001 to 2017. Data include information related to state legislation and regulations on nutrition, physical activity, and obesity in settings such as early care and education centers, restaurants, schools, workplaces, and others.</p>
 				<p>This dataset provides related policies with the status (dead, enacted, introduced, and vetoed) and their corresponding health topics. Potential research question includes: Identify some states that have a relatively high failure rate of passing theses policies, is there a specific setting (such as schools) that is more likely to pass such legislatures, which health topic is of most concerns in the legal sense, are states with higher diabetes rates taking more actions.</p>
-				<h3>USDA Weekly Retail Food Sales</h3>
+				<h3 id="retail">USDA Weekly Retail Food Sales</h3>
 				<p>This is a weekly retail food sales series from 39 states by 10 product categories (including alcohol) provided by the US Department of Agriculture. This dataset can provide some insights into food consumption in different categories among states. We could investigate questions such as: is consuming more fruits and vegetables lead to lower diabetes rates? What are food consumption trends and the potential relations with government legislation?</p>
 				<iframe src="2.html" frameborder="no" width="1000" height="700"></iframe>
+				<h3 id="fastfood">Fast Food Restaurants Across America</h3>
+				<p>This is a downloadable CSV file that has a list of over 10000 fast-food restaurants provided by Datafiniti’s Business Database. The dataset includes the restaurant’s address, city, state, name, and website. The file provides a sample (10000 restaurants) of a larger dataset. Potential research questions include fast-food restaurants per capita for all states, fast food restaurants with the most locations nationally, the number of fast-food restaurants per capita, and potential relationships with obesity rates and diabetes rates.</p>
+				<iframe src="fastfood-per-capita-geo.html" frameborder="no" width="1000" height="700"></iframe>
+				<h3 id="population">2021 U.S. Population by State</h3>
+				<p>This dataset contains the U.S. population data in 2021, 2018, and 2010 and state density. It is rather an auxiliary dataset that might be useful to investigate the attributes of other datasets per capita.</p>
+				<h3 id="reddit">Reddit Diabetes Posts and Comments</h3>
+				<p>This dataset is crawled from Reddit. Many diabetes patients would like to make posts on reddit.com to share their experiences and provide support to each other. So we chose to crawl the posts in subreddits like ‘Diabetes,’ ‘Diabetes_t1,’ ‘Diabetes_t2,’ etc., to get the latest and real patient expressions about diabetes. We can do text analysis and network analysis to make some conclusions about attention and communities.</p>
+				<img src="images/reddit.png" width="400" height="600"class="img-fluid">
+
 			</div>
+			<div class="blog-item-content mt-5">
+				<h2>Data Cleaning and Processing</h2>
+				<p>To better launch the analysis, we need to clean the data sets. For duplicates, since only Reddit datasets have duplicates, the rows were simply removed. For specific datasets, unique values are also checked, and duplicates are removed. For null values, cases are different among datasets. Some of them are removed, and some are replaced with the value “0” as data imputation. For data consistency, we change all state abbreviations to their full name. Besides, for the convenience of machine learning with a lot of categorical data, we split certain columns into multiple columns, where each column contains the corresponding data value of one particular category.</p>
+				<p>We also use missing completeness and validity to measure the cleanliness of the datasets based on evaluation criteria (Elgabry, 2019). Data quality score is calculated by missing value detection and outlier detection.</p>
+				<img src="images/missing_values.png" alt="" class="img-fluid">
+				<p> For missing values, the total number of missing values in each column is divided by the number of rows to give the missing value percentage, and we take the mean of all the missing value percentages.</p>
+				<p>For noise detection, we use the difference between the third quartile and the first quartile to calculate the interquartile range, and calculate the lower bounds <b>(Q1 - 1.5 * IQR)</b> and upper bounds <b>(Q3 + 1.5 * IQR)</b>. The final quality scores are calculated using 1 minus the missing score and noise score.</p>
+				<img src="images/notation.png" alt="" class="img-fluid">
+			</div>
+
+
 			<div class="blog-item-content mt-5">
 				<h2>Data Resources</h2>
 				<p class="lead mb-4">U.S. Chronic Disease Indicators</p>
@@ -167,7 +186,6 @@
 					<li class="list-inline-item"><a href="#" target="_blank"><i class="icofont-linkedin" aria-hidden="true"></i></a></li>
 				</ul>
 			</div>
-			<div class='tableauPlaceholder' id='viz1638314578853' style='position: relative'><noscript>< a href=' '>< img alt='US State Health-Related Policy Status from 2011 to 2017 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Po&#47;Policy_16383144622320&#47;1&#47;1_rss.png' style='border: none' /></ a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Policy_16383144622320&#47;1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Po&#47;Policy_16383144622320&#47;1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1638314578853');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 		</div>
 	</div>
 
@@ -176,211 +194,11 @@
 
 </div>
             </div>
-<!--            <div class="col-lg-4">-->
-<!--                <div class="sidebar-wrap pl-lg-4 mt-5 mt-lg-0">-->
-<!--&lt;!&ndash;	<div class="sidebar-widget search  mb-3 ">&ndash;&gt;-->
-<!--&lt;!&ndash;		<h5>Search Here</h5>&ndash;&gt;-->
-<!--&lt;!&ndash;		<form action="#" class="search-form">&ndash;&gt;-->
-<!--&lt;!&ndash;			<input type="text" class="form-control" placeholder="search">&ndash;&gt;-->
-<!--&lt;!&ndash;			<i class="ti-search"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;		</form>&ndash;&gt;-->
-<!--&lt;!&ndash;	</div>&ndash;&gt;-->
 
-
-<!--	<div class="sidebar-widget latest-post mb-3">-->
-<!--		<h5>Popular Posts</h5>-->
-
-<!--        <div class="py-2">-->
-<!--        	<span class="text-sm text-muted">03 Mar 2018</span>-->
-<!--            <h6 class="my-2"><a href="#">Thoughtful living in los Angeles</a></h6>-->
-<!--        </div>-->
-
-<!--        <div class="py-2">-->
-<!--       		<span class="text-sm text-muted">03 Mar 2018</span>-->
-<!--            <h6 class="my-2"><a href="#">Vivamus molestie gravida turpis.</a></h6>-->
-<!--        </div>-->
-
-<!--        <div class="py-2">-->
-<!--        	<span class="text-sm text-muted">03 Mar 2018</span>-->
-<!--            <h6 class="my-2"><a href="#">Fusce lobortis lorem at ipsum semper sagittis</a></h6>-->
-<!--        </div>-->
-<!--	</div>-->
-
-<!--	<div class="sidebar-widget category mb-3">-->
-<!--		<h5 class="mb-4">Categories</h5>-->
-
-<!--		<ul class="list-unstyled">-->
-<!--		  <li class="align-items-center">-->
-<!--		    <a href="#">Medicine</a>-->
-<!--		    <span>(14)</span>-->
-<!--		  </li>-->
-<!--		  <li class="align-items-center">-->
-<!--		    <a href="#">Equipments</a>-->
-<!--		    <span>(2)</span>-->
-<!--		  </li>-->
-<!--		  <li class="align-items-center">-->
-<!--		    <a href="#">Heart</a>-->
-<!--		    <span>(10)</span>-->
-<!--		  </li>-->
-<!--		  <li class="align-items-center">-->
-<!--		    <a href="#">Free counselling</a>-->
-<!--		    <span>(5)</span>-->
-<!--		  </li>-->
-<!--		  <li class="align-items-center">-->
-<!--		    <a href="#">Lab test</a>-->
-<!--		    <span>(5)</span>-->
-<!--		  </li>-->
-<!--		</ul>-->
-<!--	</div>-->
-
-
-<!--	<div class="sidebar-widget tags mb-3">-->
-<!--		<h5 class="mb-4">Tags</h5>-->
-
-<!--		<a href="#">Doctors</a>-->
-<!--		<a href="#">agency</a>-->
-<!--		<a href="#">company</a>-->
-<!--		<a href="#">medicine</a>-->
-<!--		<a href="#">surgery</a>-->
-<!--		<a href="#">Marketing</a>-->
-<!--		<a href="#">Social Media</a>-->
-<!--		<a href="#">Branding</a>-->
-<!--		<a href="#">Laboratory</a>-->
-<!--	</div>-->
-
-
-<!--	<div class="sidebar-widget schedule-widget mb-3">-->
-<!--		<h5 class="mb-4">Time Schedule</h5>-->
-
-<!--		<ul class="list-unstyled">-->
-<!--		  <li class="d-flex justify-content-between align-items-center">-->
-<!--		    <a href="#">Monday - Friday</a>-->
-<!--		    <span>9:00 - 17:00</span>-->
-<!--		  </li>-->
-<!--		  <li class="d-flex justify-content-between align-items-center">-->
-<!--		    <a href="#">Saturday</a>-->
-<!--		    <span>9:00 - 16:00</span>-->
-<!--		  </li>-->
-<!--		  <li class="d-flex justify-content-between align-items-center">-->
-<!--		    <a href="#">Sunday</a>-->
-<!--		    <span>Closed</span>-->
-<!--		  </li>-->
-<!--		</ul>-->
-
-<!--		<div class="sidebar-contatct-info mt-4">-->
-<!--			<p class="mb-0">Need Urgent Help?</p>-->
-<!--			<h3>+23-4565-65768</h3>-->
-<!--		</div>-->
-<!--	</div>-->
-
-<!--</div>-->
-<!--            </div>   -->
-<!--        </div>-->
     </div>
+	</div>
 </section>
 
-
-<!--&lt;!&ndash; footer Start &ndash;&gt;-->
-<!--<footer class="footer section gray-bg">-->
-<!--	<div class="container">-->
-<!--		<div class="row">-->
-<!--			<div class="col-lg-4 mr-auto col-sm-6">-->
-<!--				<div class="widget mb-5 mb-lg-0">-->
-<!--					<div class="logo mb-4">-->
-<!--						<img src="images/logo.png" alt="" class="img-fluid">-->
-<!--					</div>-->
-<!--					<p>Tempora dolorem voluptatum nam vero assumenda voluptate, facilis ad eos obcaecati tenetur veritatis eveniet distinctio possimus.</p>-->
-
-<!--					<ul class="list-inline footer-socials mt-4">-->
-<!--						<li class="list-inline-item"><a href="https://www.facebook.com/themefisher"><i class="icofont-facebook"></i></a></li>-->
-<!--						<li class="list-inline-item"><a href="https://twitter.com/themefisher"><i class="icofont-twitter"></i></a></li>-->
-<!--						<li class="list-inline-item"><a href="https://www.pinterest.com/themefisher/"><i class="icofont-linkedin"></i></a></li>-->
-<!--					</ul>-->
-<!--				</div>-->
-<!--			</div>-->
-
-<!--			<div class="col-lg-2 col-md-6 col-sm-6">-->
-<!--				<div class="widget mb-5 mb-lg-0">-->
-<!--					<h4 class="text-capitalize mb-3">Department</h4>-->
-<!--					<div class="divider mb-4"></div>-->
-
-<!--					<ul class="list-unstyled footer-menu lh-35">-->
-<!--						<li><a href="#">Surgery </a></li>-->
-<!--						<li><a href="#">Wome's Health</a></li>-->
-<!--						<li><a href="#">Radiology</a></li>-->
-<!--						<li><a href="#">Cardioc</a></li>-->
-<!--						<li><a href="#">Medicine</a></li>-->
-<!--					</ul>-->
-<!--				</div>-->
-<!--			</div>-->
-
-<!--			<div class="col-lg-2 col-md-6 col-sm-6">-->
-<!--				<div class="widget mb-5 mb-lg-0">-->
-<!--					<h4 class="text-capitalize mb-3">Support</h4>-->
-<!--					<div class="divider mb-4"></div>-->
-
-<!--					<ul class="list-unstyled footer-menu lh-35">-->
-<!--						<li><a href="#">Terms & Conditions</a></li>-->
-<!--						<li><a href="#">Privacy Policy</a></li>-->
-<!--						<li><a href="#">Company Support </a></li>-->
-<!--						<li><a href="#">FAQuestions</a></li>-->
-<!--						<li><a href="#">Company Licence</a></li>-->
-<!--					</ul>-->
-<!--				</div>-->
-<!--			</div>-->
-
-<!--			<div class="col-lg-3 col-md-6 col-sm-6">-->
-<!--				<div class="widget widget-contact mb-5 mb-lg-0">-->
-<!--					<h4 class="text-capitalize mb-3">Get in Touch</h4>-->
-<!--					<div class="divider mb-4"></div>-->
-
-<!--					<div class="footer-contact-block mb-4">-->
-<!--						<div class="icon d-flex align-items-center">-->
-<!--							<i class="icofont-email mr-3"></i>-->
-<!--							<span class="h6 mb-0">Support Available for 24/7</span>-->
-<!--						</div>-->
-<!--						<h4 class="mt-2"><a href="tel:+23-345-67890">Support@email.com</a></h4>-->
-<!--					</div>-->
-
-<!--					<div class="footer-contact-block">-->
-<!--						<div class="icon d-flex align-items-center">-->
-<!--							<i class="icofont-support mr-3"></i>-->
-<!--							<span class="h6 mb-0">Mon to Fri : 08:30 - 18:00</span>-->
-<!--						</div>-->
-<!--						<h4 class="mt-2"><a href="tel:+23-345-67890">+23-456-6588</a></h4>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--		-->
-<!--		<div class="footer-btm py-4 mt-5">-->
-<!--			<div class="row align-items-center justify-content-between">-->
-<!--				<div class="col-lg-6">-->
-<!--					<div class="copyright">-->
-<!--						&copy; Copyright Reserved to <span class="text-color">Novena</span> by <a href="https://themefisher.com/" target="_blank">Themefisher</a>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-lg-6">-->
-<!--					<div class="subscribe-form text-lg-right mt-5 mt-lg-0">-->
-<!--						<form action="#" class="subscribe">-->
-<!--							<input type="text" class="form-control" placeholder="Your Email address">-->
-<!--							<a href="#" class="btn btn-main-2 btn-round-full">Subscribe</a>-->
-<!--						</form>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-
-<!--			<div class="row">-->
-<!--				<div class="col-lg-4">-->
-<!--					<a class="backtop js-scroll-trigger" href="#top">-->
-<!--						<i class="icofont-long-arrow-up"></i>-->
-<!--					</a>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</footer>-->
-<!--   -->
 
     <!-- 
     Essential Scripts
